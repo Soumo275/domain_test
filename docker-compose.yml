@@ -1,10 +1,12 @@
 services:
   app:
-    build: .
+    build: ./
     container_name: startup-node-app
     expose:
       - "3000"
     restart: unless-stopped
+    networks:
+      - web
 
   nginx:
     image: nginx:alpine
@@ -16,3 +18,9 @@ services:
     depends_on:
       - app
     restart: unless-stopped
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
